@@ -38,11 +38,11 @@ class ODriveInterfaceAPI(object):
     def __del__(self):
         self.disconnect()
                     
-    def connect(self, port=None, right_axis=0, timeout=30):
+    def connect(self, port=None, right_axis=0, timeout=30, serial_number=None):
         if self.driver:
             self.logger.info("Already connected. Disconnecting and reconnecting.")
         try:
-            self.driver = odrive.find_any(timeout=timeout, logger=self.logger)
+            self.driver = odrive.find_any(serial_number=serial_number, timeout=timeout, logger=self.logger)
             self.axes = (self.driver.axis0, self.driver.axis1)
         except:
             self.logger.error("No ODrive found. Is device powered?")
